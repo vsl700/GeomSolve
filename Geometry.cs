@@ -183,7 +183,7 @@ namespace GeomSolve
                             }
                             else
                             {
-                                //Values will correct their names according to the future geoms renderer! It should check the geoms every time a change is made before rendering them and correct them
+                                //Values will correct their names according to the future geoms renderer! Renderer should check the geoms every time a change is made before rendering them and correct them
                                 ownerGeom.controller.CreateGeom(valueType, valueName, false);
                             }
                         }

@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace GeomSolve
 {
-    delegate string stringOperation(Geometry geometry, int index);
-    delegate Geometry geomOperation(Geometry geometry, int index);
+    /*class Operation<T>
+    {
+        public T Act(params object[] args) { throw new NotImplementedException($"An operation returning {typeof(T)} does not have an implemented method!"); }
+    }*/
+
+    delegate string stringOperation(Geometry geometry, params object[] args);
+    delegate Geometry geomOperation(Geometry geometry, params object[] args);
     public class Operations
     {
         //private static string[] operations = new string[] { "symb", "parent", "name" };
@@ -23,8 +28,10 @@ namespace GeomSolve
             return geometry.name[index] + "";
         }*/
 
-        public static string VALUE(Geometry geometry, int index)
+        public static string VALUE(Geometry geometry, params object[] args)
         {
+            int index = (int) args[0];
+
             if (geometry.values[index].GValue == 0)//If there's no value assigned to the current value
             {
                 if (geometry.geomType.typeAmount > 1 || geometry.values[index].valueDesc == "")//If there's for example two or more triangles or if the value has no description (like the lines)
@@ -37,8 +44,10 @@ namespace GeomSolve
             return geometry.values[index].GValue.ToString();
         }
 
-        public static Geometry PARENT(Geometry geometry, int index)
+        public static Geometry PARENT(Geometry geometry, params object[] args)
         {
+            int index = (int)args[0];
+
             if (index < 0)
                 throw new ArgumentOutOfRangeException($"parent({index}) in the {geometry.geomType.type} file is an invalid argument (less than zero!)!");
 
@@ -48,8 +57,10 @@ namespace GeomSolve
             return geometry.parentGeoms[index];
         }
 
-        public static string NAME(Geometry geometry, int index)
+        public static string NAME(Geometry geometry, params object[] args)
         {
+            int index = (int)args[0];
+
             if (index < 0)
                 throw new ArgumentOutOfRangeException($"name({index}) in the {geometry.geomType.type} file is an invalid argument (less than zero!)!");
             
